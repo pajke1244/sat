@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sat</title>
+	<link rel="stylesheet" type="text/css" href="css.css">
+</head>
+<body>
+<div class="container">
+  <h1 id="headline">A kad mi dodjes ti i osmeh vratis mi</h1>
+  <div id="countdown">
+    <ul>
+      <li><span id="days"></span>Dana</li>
+      <li><span id="hours"></span>Sata</li>
+      <li><span id="minutes"></span>Minuta</li>
+      <li><span id="seconds"></span>Sekundi</li>
+    </ul>
+  </div>
+  <div id="content" class="emoji">
+    <span>🥳</span>
+    <span>🎉</span>
+    <span>🎂</span>
+  </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+  (function () {
+    const second = 1000,
+      minute = second * 60,
+      hour = minute * 60,
+      day = hour * 24;
+
+    const today = new Date(),
+      dd = String(today.getDate()).padStart(2, "0"),
+      mm = String(today.getMonth() + 1).padStart(2, "0"),
+      yyyy = today.getFullYear(),
+      targetTime = new Date(`${mm}/${dd}/${yyyy} 22:45:00`).getTime(); // Postavljamo ciljno vreme na 22:45
+
+    const x = setInterval(function () {
+      const now = new Date().getTime(),
+        distance = targetTime - now;
+
+      if (distance < 0) {
+        // Ako je vreme već prošlo, možete dodati odgovarajuću logiku ovde.
+        document.getElementById("headline").innerText = "Vreme je prošlo!";
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("content").style.display = "block";
+        clearInterval(x);
+        return;
+      }
+
+      document.getElementById("days").innerText = Math.floor(distance / day);
+      document.getElementById("hours").innerText = Math.floor((distance % day) / hour);
+      document.getElementById("minutes").innerText = Math.floor((distance % hour) / minute);
+      document.getElementById("seconds").innerText = Math.floor((distance % minute) / second);
+    }, 0);
+  })();
+</script>
